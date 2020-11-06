@@ -1,11 +1,13 @@
 /*
 1. List the following details of each employee: employee number, last name, first name, sex, and salary.
 2. List first name, last name, and hire date for employees who were hired in 1986.
-3. List the manager of each department with the following information: department number, department name, the manager's employee number, last name, first name.
+3. List the manager of each department with the following information: department number, 
+department name, the manager's employee number, last name, first name.
 4. List the department of each employee with the following information: employee number, last name, first name, and department name.
 5. List first name, last name, and sex for employees whose first name is "Hercules" and last names begin with "B."
 6. List all employees in the Sales department, including their employee number, last name, first name, and department name.
-7. List all employees in the Sales and Development departments, including their employee number, last name, first name, and department name.
+7. List all employees in the Sales and Development departments, including their 
+employee number, last name, first name, and department name.
 8. In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
 */
  --1
@@ -49,7 +51,7 @@ select dm.dept_no as "Department NO",
  where first_name = 'Hercules' 
  and last_name like 'B%'
  
- --  6 List all employees in the Sales department, including their employee number, last name, first name, and department name.
+ --  6  
  
  select es.emp_no as "Employee Number",
  es.last_name as "Last name",
@@ -63,6 +65,40 @@ inner join departments d on d.dept_no = de.dept_no
   
  --52245
  
-
-
+--7. 
  
+select es.emp_no as "Employee Number",
+ es.last_name as "Last name",
+ es.first_name as "First Name",
+ d.depart_name as "Department"
+ from  employees es   
+inner join depart_emp de on de.emp_no = es.emp_no
+inner join departments d on d.dept_no = de.dept_no
+
+ where d.depart_name in ('Sales','Development')
+ 
+ --8 In descending order, list the frequency count of employee last names, i.e., how many employees share each last name.
+ 
+ select count(*) as "Count", last_name as "Last Name" 
+ from employees 
+ group by last_name
+ order by "Count" desc
+ 
+--Evidence in hand, you march into your boss's office and present the visualization. 
+--With a sly grin, your boss thanks you for your work. On your way out of the office, 
+-- you hear the words, "Search your ID number." You look down at your
+-- badge to see that your employee ID number is 499942.
+
+select es.emp_no as "Employee Number",
+ es.last_name as "Last name",
+ es.first_name as "First Name",
+ d.depart_name as "Department",
+ sa.salary,
+ tl.title
+ from  employees es   
+inner join depart_emp de on de.emp_no = es.emp_no
+inner join salaries sa on sa.emp_no = es.emp_no 
+inner join departments d on d.dept_no = de.dept_no
+left outer join titles tl on tl.title_id = es.emp_title_id
+
+where es.emp_no = 499942
