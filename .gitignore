@@ -124,6 +124,12 @@ venv.bak/
 .mypy_cache/
 .dmypy.json
 dmypy.json
+.DS_Store
+config.py
+secrets.py
+.vscode
+.ipynb_checkpoints
+
 
 # Pyre type checker
 .pyre/
